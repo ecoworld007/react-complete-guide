@@ -27,9 +27,17 @@ class App extends Component {
       persons: [
         {name: 'Himanshu', age: 26},
         {name: event.target.value, age: 27},
-        {name: 'Rohit', age: 29}
-      ]
+        {name: 'Rohit', age: 29},
+      ],
+      showPersons: false,
     })
+  }
+
+  togglePersons = () => {
+    let doesShow = this.state.showPersons;
+    this.setState({
+      showPersons: !doesShow
+    });
   }
   render() {
     const style = {
@@ -42,20 +50,24 @@ class App extends Component {
     return (
       <div className="App">
           <h1>Welcome to React</h1>
-          <button style={style} onClick={this.switchNameHandler.bind(this, 'Himanshu Negi')}>Switch Name</button>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}>
-              My Hobbies is cycling
-          </Person>
-          <Person 
-            nameChanged={this.nameChangedHandler} 
-            click={() => this.switchNameHandler('Mattu')} 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}/>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}/>
+          <button style={style} onClick={this.togglePersons}>Toggle Persons</button>
+          { this.state.showPersons ?
+            <div>
+              <Person 
+                name={this.state.persons[0].name} 
+                age={this.state.persons[0].age}>
+                  My Hobbies is cycling
+              </Person>
+              <Person 
+                nameChanged={this.nameChangedHandler} 
+                click={() => this.switchNameHandler('Mattu')} 
+                name={this.state.persons[1].name} 
+                age={this.state.persons[1].age}/>
+              <Person 
+                name={this.state.persons[2].name} 
+                age={this.state.persons[2].age}/>
+            </div> : null
+          }
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Welcome to React'));
