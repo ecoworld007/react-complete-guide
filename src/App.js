@@ -17,17 +17,20 @@ class App extends Component {
     this.setState({persons});
   }
 
-  nameChangedHandler = (event) => {
+  nameChangedHandler = (event, id) => {
     console.log('was clicked!');
     // Don't Use this to change state this.state.persons = [{name: 'Himanshu', age: 26}, {name: 'Vinay', age: 27}, {name: 'Rohit', age: 28}]
+    const personIndex = this.state.persons.findIndex(p => p.id === id);
+    const person = Object.assign({}, this.state.persons[personIndex]);
+    // const person = {
+    //   ...this.state.persons[personIndex]
+    // };
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
     this.setState({
-      persons: [
-        {name: 'Himanshu', age: 26},
-        {name: event.target.value, age: 27},
-        {name: 'Rohit', age: 29},
-      ],
-      showPersons: false,
-    })
+      persons
+    });
   }
 
   togglePersons = () => {
@@ -46,7 +49,21 @@ class App extends Component {
     }
     let persons = null;
     if(this.state.showPersons){
-      persons = (<div>{this.state.persons.map((person, index) => (<Person click={() => this.deletePersonHandler(index)} name={person.name} age={person.age} key={person.id}/>))}</div>);
+      persons = (
+        <div>
+          {
+            this.state.persons.map((person, index) => (
+              <Person 
+                click={() => this.deletePersonHandler(index)} 
+                name={person.name} 
+                age={person.age} 
+                key={person.id}
+                nameChanged = {event => this.nameChangedHandler(event, person.id)}
+                />
+              ))
+          }
+        </div>
+      );
     }
     return (
       <div className="App">
