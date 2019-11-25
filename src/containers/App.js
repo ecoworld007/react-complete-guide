@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -41,39 +42,10 @@ class App extends Component {
     });
   }
   render() {
-    let persons = null;
-    let btnClass = '';
-    if(this.state.showPersons){
-      persons = (
-        <div>
-          {
-            this.state.persons.map((person, index) => (
-              <Person 
-                click={() => this.deletePersonHandler(index)} 
-                name={person.name} 
-                age={person.age} 
-                key={person.id}
-                nameChanged = {event => this.nameChangedHandler(event, person.id)}
-                />
-              ))
-          }
-        </div>
-      );
-      btnClass =  classes.Red;
-    }
-    const altClasses = [];
-    if(this.state.persons.length<=2){
-      altClasses.push(classes.red);
-    }
-    if(this.state.persons.length<=1){
-      altClasses.push(classes.bold);
-    }
     return (
         <div className={classes.App}>
-            <h1>Welcome to React</h1>
-            <p className={altClasses.join(' ')}>This is working</p>
-            <button className={btnClass} onClick={this.togglePersons}>Toggle Persons</button>
-            {persons}
+            <Cockpit toggle={this.togglePersons} persons={this.state.persons} showPersons={this.state.showPersons}/>
+            <Persons showPersons={this.state.showPersons} persons={this.state.persons} deleted={this.deletePersonHandler} nameChanged={this.nameChangedHandler}/>
         </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Welcome to React'));
