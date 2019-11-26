@@ -3,7 +3,7 @@ import Person from './Person/Person';
 class Persons extends Component {
   shouldComponentUpdate(nextProps, nextState){
     console.log('[Persons.js] shouldComponentUpdate');
-    return true;
+    return this.props.persons!==nextProps.persons;
   }
 
   componentDidUpdate(){
@@ -15,27 +15,19 @@ class Persons extends Component {
   }
   render(){
     console.log('[Persons.js] rendering...');
-    let personsTag = null;
-    if(this.props.showPersons){
-      personsTag = (
-        <div>
-          {
-            this.props.persons.map((person, index) => (
-              <Person 
-                click={() => this.props.deleted(index)} 
-                name={person.name} 
-                age={person.age} 
-                key={person.id}
-                nameChanged = {event => this.props.nameChanged(event, person.id)}
-                />
-              ))
-          }
-        </div>
-      );
-    }
     return (
       <div>
-        {personsTag}
+        {
+          this.props.persons.map((person, index) => (
+            <Person 
+              click={() => this.props.deleted(index)} 
+              name={person.name} 
+              age={person.age} 
+              key={person.id}
+              nameChanged = {event => this.props.nameChanged(event, person.id)}
+              />
+            ))
+        }
       </div>
     );
   }

@@ -68,13 +68,17 @@ class App extends Component {
   }
   render() {
     console.log('[App.js] render');
+    let persons = null;
+    if(this.state.showPersons){
+      persons = <Persons showPersons={this.state.showPersons} persons={this.state.persons} deleted={this.deletePersonHandler} nameChanged={this.nameChangedHandler}/>;
+    }
     return (
         <div className={classes.App}>
           <button onClick={() => this.setState({
             showCockpit: false
           })}>Hide cockpit</button>
           {this.state.showCockpit ? <Cockpit toggle={this.togglePersons} persons={this.state.persons} showPersons={this.state.showPersons}/> : null}
-          <Persons showPersons={this.state.showPersons} persons={this.state.persons} deleted={this.deletePersonHandler} nameChanged={this.nameChangedHandler}/>
+          {persons}
         </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Welcome to React'));
