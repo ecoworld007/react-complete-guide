@@ -1,30 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Person from './Person/Person';
-const persons = (props) => {
-  console.log('[Persons.js] rendering...');
-  let personsTag = null;
-  if(props.showPersons){
-    personsTag = (
+class Persons extends Component {
+  render(){
+    console.log('[Persons.js] rendering...');
+    let personsTag = null;
+    if(this.props.showPersons){
+      personsTag = (
+        <div>
+          {
+            this.props.persons.map((person, index) => (
+              <Person 
+                click={() => this.props.deleted(index)} 
+                name={person.name} 
+                age={person.age} 
+                key={person.id}
+                nameChanged = {event => this.props.nameChanged(event, person.id)}
+                />
+              ))
+          }
+        </div>
+      );
+    }
+    return (
       <div>
-        {
-          props.persons.map((person, index) => (
-            <Person 
-              click={() => props.deleted(index)} 
-              name={person.name} 
-              age={person.age} 
-              key={person.id}
-              nameChanged = {event => props.nameChanged(event, person.id)}
-              />
-            ))
-        }
+        {personsTag}
       </div>
     );
   }
-  return (
-    <div>
-      {personsTag}
-    </div>
-  );
 }
 
-export default persons;
+export default Persons;
