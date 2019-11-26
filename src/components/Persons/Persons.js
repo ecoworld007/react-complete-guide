@@ -1,6 +1,18 @@
 import React, {Component} from 'react';
 import Person from './Person/Person';
 class Persons extends Component {
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('[Persons.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(){
+    console.log('[Persons.js] componentDidUpdate');
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log('[Persons.js] getSnapshotBeforeUpdate');
+    return null;
+  }
   render(){
     console.log('[Persons.js] rendering...');
     let personsTag = null;

@@ -1,6 +1,22 @@
 import React, {Component} from 'react';
 import classes from './Person.css'
 class Person extends Component{
+  // static getDerivedStateFromProps(props, state){
+  //   console.log('[Person.js] getDerivedStateFromProps');
+  //   return state;
+  // }
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('[Person.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(nextProps, nextState, snapshot){
+    console.log('[Person.js] componentDidUpdate', snapshot);
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log('[Person.js] getSnapshotBeforeUpdate');
+    return {message: 'snapshot saved'}
+  }
   render() {
     console.log('[Person.js] rendering...');
     return (
