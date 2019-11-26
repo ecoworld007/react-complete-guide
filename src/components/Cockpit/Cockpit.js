@@ -1,6 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './Cockpit.css';
 const cockpit = (props) => {
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    setTimeout(() => {
+      alert('saved data to cloud');
+    }, 1000);
+  }, []);//[props.persons] if runs only when the state of persons change 
+
   console.log('[Cockpit.js] rendering...');
   let btnClass = '';
   if(props.showPersons){
