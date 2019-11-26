@@ -6,6 +6,9 @@ const cockpit = (props) => {
     setTimeout(() => {
       alert('saved data to cloud');
     }, 1000);
+    return () => {
+        console.log('[Cockpit.js] clean work in useeffect');
+      }
   }, []);//[props.persons] if runs only when the state of persons change 
 
   console.log('[Cockpit.js] rendering...');
