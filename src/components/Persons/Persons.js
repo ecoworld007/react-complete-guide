@@ -1,5 +1,8 @@
 import React, {PureComponent} from 'react';
 import Person from './Person/Person';
+import withClass from '../../hoc/withClass';
+import Aux from '../../hoc/Aux';
+
 class Persons extends PureComponent {
   // shouldPureComponentUpdate(nextProps, nextState){
   //   console.log('[Persons.js] shouldComponentUpdate');
@@ -16,7 +19,7 @@ class Persons extends PureComponent {
   render(){
     console.log('[Persons.js] rendering...');
     return (
-      <div>
+      <Aux>
         {
           this.props.persons.map((person, index) => (
             <Person 
@@ -28,9 +31,9 @@ class Persons extends PureComponent {
               />
             ))
         }
-      </div>
+      </Aux>
     );
   }
 }
 
-export default Persons;
+export default withClass(Persons, null);
