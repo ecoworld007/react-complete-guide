@@ -5,10 +5,21 @@ import withClass from '../../../hoc/withClass';
 import PropTypes from 'prop-types';
 
 class Person extends Component{
+  constructor(props){
+    super(props);
+    this.inputElementRef = React.createRef();
+  }
+
   // static getDerivedStateFromProps(props, state){
   //   console.log('[Person.js] getDerivedStateFromProps');
   //   return state;
   // }
+  componentDidMount(){
+    console.log('[Person.js] componentDidMount');
+    //this.inputElement.focus();
+    this.inputElementRef.current.focus();
+  }
+
   shouldComponentUpdate(nextProps, nextState){
     console.log('[Person.js] shouldComponentUpdate');
     return true;
@@ -27,7 +38,12 @@ class Person extends Component{
       <Aux>
         <p onClick={this.props.click} >I am {this.props.name} and my age is {this.props.age} year</p>
         <p>{this.props.children}</p>
-        <input type='text' onChange={this.props.nameChanged} value={this.props.name}/>
+        <input 
+          // ref={(inputEl) => this.inputElement = inputEl} 
+          ref={this.inputElementRef}
+          type='text' 
+          onChange={this.props.nameChanged} 
+          value={this.props.name}/>
       </Aux>
     )
   }
