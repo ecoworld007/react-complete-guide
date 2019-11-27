@@ -11,16 +11,20 @@ const cockpit = (props) => {
       }
   }, []);//[props.persons] if runs only when the state of persons change 
 
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+  })
+
   console.log('[Cockpit.js] rendering...');
   let btnClass = '';
   if(props.showPersons){
     btnClass = classes.Red;
   }
   const assignedClasses = [];
-  if(props.persons.length<=2){
+  if(props.personsLength<=2){
     assignedClasses.push(classes.red);
   }
-  if(props.persons.length<=1){
+  if(props.personsLength<=1){
     assignedClasses.push(classes.bold);
   }
   return (
@@ -32,4 +36,4 @@ const cockpit = (props) => {
   );
 }
 
-export default cockpit;
+export default React.memo(cockpit);
