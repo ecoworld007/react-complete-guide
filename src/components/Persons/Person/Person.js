@@ -10,6 +10,8 @@ class Person extends Component{
     this.inputElementRef = React.createRef();
   }
 
+  static contextType = AuthContext;
+
   // static getDerivedStateFromProps(props, state){
   //   console.log('[Person.js] getDerivedStateFromProps');
   //   return state;
@@ -18,6 +20,7 @@ class Person extends Component{
     console.log('[Person.js] componentDidMount');
     //this.inputElement.focus();
     this.inputElementRef.current.focus();
+    console.log('[person.js] using context in componentDidMount', this.context.authenticated);
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -36,15 +39,13 @@ class Person extends Component{
     console.log('[Person.js] rendering...');
     return (
       <Aux>
-        <AuthContext.Consumer>
-          {(context) => context.authenticated ? 'Authenticated!' : 'Please log in!'}
-        </AuthContext.Consumer>
+        {this.context.authenticated ? 'Authenticated!' : 'Please log in!'}
         <p onClick={this.props.click} >I am {this.props.name} and my age is {this.props.age} year</p>
         <p>{this.props.children}</p>
         <input 
           // ref={(inputEl) => this.inputElement = inputEl} 
           ref={this.inputElementRef}
-          type='text' 
+          type='text'
           onChange={this.props.nameChanged} 
           value={this.props.name}/>
       </Aux>
